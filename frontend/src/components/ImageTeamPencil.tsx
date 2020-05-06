@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Layer, Text } from "react-konva";
+import { Image, Text } from "react-konva";
 import useImage from "use-image";
 import { IWavelengthData, ITeamData } from "../store/store";
 
@@ -100,7 +100,7 @@ interface IPencilProps {
   offsetX?: number;
   offsetY?: number;
 }
-export const ImagePencil = ({
+const ImagePencil = ({
   name,
   score,
   offsetX = 0,

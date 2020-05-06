@@ -12,7 +12,8 @@ import {
 } from "../components/SimpleImages";
 import { ImageCover } from "../components/ImageCover";
 import { ImageCard } from "../components/ImageCard";
-import { TeamPencils, ImagePencil } from "../components/ImageTeamPencil";
+import { TeamPencils } from "../components/ImageTeamPencil";
+import { PencilPusher } from "../components/PencilPusher";
 import { GameUpdater } from "../components/GameUpdater";
 import { AdminPanel } from "../components/AdminPanel";
 import { IState, IWavelengthData } from "../store/store";
@@ -32,7 +33,7 @@ const HomeUnconnected = ({ socket, wavelengthData }: IAdminProps) => {
     setTargetRange(wavelengthData.targetRange);
     setCovered(wavelengthData.covered);
   }, [wavelengthData]);
-  const unlocked = team === wavelengthData.activeTeam;
+  const unlocked = team === wavelengthData.activeTeam || team === "admin";
 
   return (
     <>
@@ -52,6 +53,9 @@ const HomeUnconnected = ({ socket, wavelengthData }: IAdminProps) => {
               angle={wavelengthData.dialAngle}
             />
             <ImageHalfFrame />
+            {!unlocked && teams.includes(team) && (
+              <PencilPusher team={team} socket={socket} />
+            )}
           </Layer>
           <Layer offsetY={-671} offsetX={-220}>
             <Background />
