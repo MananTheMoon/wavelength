@@ -12,6 +12,7 @@ function App() {
   return (
     <Provider store={store}>
       <Switch>
+        <Route exact path="/" component={Home} />
         <Route exact path="/:team" component={Home} />
       </Switch>
     </Provider>

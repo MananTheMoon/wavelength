@@ -17,6 +17,7 @@ import { PencilPusher } from "../components/PencilPusher";
 import { GameUpdater } from "../components/GameUpdater";
 import { AdminPanel } from "../components/AdminPanel";
 import { IState, IWavelengthData } from "../store/store";
+import { JoinTeam } from "../components/JoinTeam";
 
 const teams = ["team1", "team2", "team3", "team4"];
 
@@ -71,6 +72,7 @@ const HomeUnconnected = ({ socket, wavelengthData }: IAdminProps) => {
         </Stage>
       </div>
       {team === "admin" && <AdminPanel teams={teams} />}
+      {!team && <JoinTeam teams={teams} wavelengthData={wavelengthData} />}
       <GameUpdater />
     </>
   );

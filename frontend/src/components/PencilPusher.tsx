@@ -1,7 +1,6 @@
 import React from "react";
-import { Image, Text } from "react-konva";
+import { Image } from "react-konva";
 import useImage from "use-image";
-import { IWavelengthData, ITeamData } from "../store/store";
 
 interface IPencilPusherProps {
   team: string;
