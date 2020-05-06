@@ -1,0 +1,61 @@
+{
+  "name": "wavelength",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/lodash": "^4.14.150",
+    "@types/react-redux": "^7.1.7",
+    "@types/react-router": "^5.1.5",
+    "@types/react-router-dom": "^5.1.3",
+    "@types/socket.io-client": "^1.4.32",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.4.1",
+    "classnames": "^2.2.6",
+    "konva": "^5.0.3",
+    "lodash": "^4.17.15",
+    "react": "^16.13.1",
+    "react-bootstrap": "^1.0.0",
+    "react-canvas": "^1.3.0",
+    "react-dom": "^16.13.1",
+    "react-konva": "^16.13.0-0",
+    "react-redux": "^7.2.0",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "redux": "^4.0.5",
+    "socket.io-client": "^2.3.0",
+    "tslint": "^6.1.1",
+    "typesafe-actions": "^5.1.0",
+    "typescript": "^3.8.3",
+    "use-image": "^1.0.5"
+  },
+  "scripts": {
+    "start": "PORT=3006 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "proxy": "http://localhost:5000",
+  "description": "Digital version of Wavelength (using socket.io + react)",
+  "author": "Manan Thakkar"
+}
