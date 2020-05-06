@@ -16,6 +16,16 @@ export interface IWavelengthData {
     left: string;
     right: string;
   };
+  teams: {
+    [key: string]: ITeamData;
+  };
+}
+
+export interface ITeamData {
+  name: string;
+  score: number;
+  position: "center" | "left" | "right";
+  shown?: boolean;
 }
 
 export interface IState {
@@ -33,6 +43,7 @@ const emptyStore = {
       left: "Left",
       right: "right",
     },
+    teams: {},
   },
 };
 

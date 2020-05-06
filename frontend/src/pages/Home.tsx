@@ -12,9 +12,12 @@ import {
 } from "../components/SimpleImages";
 import { ImageCover } from "../components/ImageCover";
 import { ImageCard } from "../components/ImageCard";
+import { TeamPencils, ImagePencil } from "../components/ImageTeamPencil";
 import { GameUpdater } from "../components/GameUpdater";
 import { AdminPanel } from "../components/AdminPanel";
 import { IState, IWavelengthData } from "../store/store";
+
+const teams = ["team1", "team2", "team3", "team4"];
 
 interface IAdminProps {
   socket?: SocketIOClient.Socket;
@@ -58,9 +61,12 @@ const HomeUnconnected = ({ socket, wavelengthData }: IAdminProps) => {
             left={wavelengthData.prompt.left}
             right={wavelengthData.prompt.right}
           />
+          <Layer>
+            <TeamPencils teams={teams} wavelengthData={wavelengthData} />
+          </Layer>
         </Stage>
       </div>
-      {team === "admin" && <AdminPanel />}
+      {team === "admin" && <AdminPanel teams={teams} />}
       <GameUpdater />
     </>
   );

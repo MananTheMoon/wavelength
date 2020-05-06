@@ -5,11 +5,13 @@ import { IState, IWavelengthData } from "../store/store";
 interface IAdminPanelProps {
   socket?: SocketIOClient.Socket;
   wavelengthData: IWavelengthData;
+  teams: string[];
 }
 
 const AdminPanelUnconnected = ({
   socket,
   wavelengthData,
+  teams,
 }: IAdminPanelProps) => {
   const [leftPromptInput, setLeftPromptInput] = React.useState(
     wavelengthData.prompt.left
@@ -76,31 +78,65 @@ const AdminPanelUnconnected = ({
         >
           Admin Control
         </button>
-
-        <button
-          onClick={() => {
-            socket.emit("setActiveTeam", "team1");
-          }}
-        >
-          Team 1
-        </button>
-
-        <button
-          onClick={() => {
-            socket.emit("setActiveTeam", "team2");
-          }}
-        >
-          Team 2
-        </button>
-
-        <button
-          onClick={() => {
-            socket.emit("setActiveTeam", "team3");
-          }}
-        >
-          Team 3
-        </button>
       </div>
+      {teams.map((team) => {
+        const teamData = wavelengthData.teams[team];
+        if (teamData) {
+          return (
+            <div className="d-flex w-100 justify-content-center mb-2">
+              <button
+                className="mr-4"
+                onClick={() => {
+                  socket.emit("setActiveTeam", team);
+                }}
+              >
+                Activate {teamData.name}
+              </button>
+
+              <button
+                onClick={() => {
+                  socket.emit("setTeamScore", team, teamData.score - 1);
+                }}
+              >
+                ⌄
+              </button>
+              <div className="mx-2 large">{teamData.score}</div>
+              <button
+                className="mr-4"
+                onClick={() => {
+                  socket.emit("setTeamScore", team, teamData.score + 1);
+                }}
+              >
+                ⌃
+              </button>
+              <button
+                className="mr-4"
+                onClick={() => {
+                  socket.emit("setShowTeam", team, !teamData.shown);
+                }}
+              >
+                {teamData.shown ? "Hide" : "Show"}
+              </button>
+              <button
+                onClick={() => {
+                  socket.emit("setTeamPosition", team, "left");
+                }}
+              >
+                {"<--"}
+              </button>
+              <button
+                className="mr-4"
+                onClick={() => {
+                  socket.emit("setTeamPosition", team, "right");
+                }}
+              >
+                {"-->"}
+              </button>
+            </div>
+          );
+        }
+        return <div>Missing Team?</div>;
+      })}
     </>
   );
 };

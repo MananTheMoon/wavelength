@@ -32,6 +32,32 @@ let wavelengthData = {
     left: "Left",
     right: "right",
   },
+  teams: {
+    team1: {
+      name: "Team 1",
+      score: 0,
+      position: "left", // or right or center
+      shown: true,
+    },
+    team2: {
+      name: "Team 2",
+      score: 0,
+      position: "left", // or right or center
+      shown: true,
+    },
+    team3: {
+      name: "Team 3",
+      score: 0,
+      position: "right", // or right or center
+      shown: true,
+    },
+    team4: {
+      name: "Team 4",
+      score: 0,
+      position: "right", // or right or center
+      shown: false,
+    },
+  },
 };
 
 let players = {};
@@ -70,9 +96,51 @@ io.on("connection", (socket) => {
   });
 
   socket.on("setActiveTeam", (team) => {
+    // Move activeTeam away from center
+    if (
+      wavelengthData.activeTeam &&
+      wavelengthData.teams[wavelengthData.activeTeam]
+    ) {
+      wavelengthData.teams[wavelengthData.activeTeam].position = "left";
+    }
+
+    // Set new Active Team and move it to center
     wavelengthData.activeTeam = team;
-    console.log("Set team to ", team);
+    console.log("Set active team to ", team);
+    if (wavelengthData.teams[team]) {
+      wavelengthData.teams[team].position = "center";
+    }
     sendGameData();
+  });
+
+  socket.on("setTeamPosition", (team, position) => {
+    if (wavelengthData.teams[team]) {
+      wavelengthData.teams[team].position = position;
+      console.log(`Set ${team} position to ${position}`);
+      sendGameData();
+    } else {
+      console.log(`FAILED: Set ${team} position to ${position}`);
+    }
+  });
+
+  socket.on("setTeamScore", (team, score) => {
+    if (wavelengthData.teams[team]) {
+      wavelengthData.teams[team].score = score;
+      console.log(`Set ${team} score to ${score}`);
+      sendGameData();
+    } else {
+      console.log(`FAILED: Set ${team} score to ${score}`);
+    }
+  });
+
+  socket.on("setShowTeam", (team, shown) => {
+    if (wavelengthData.teams[team]) {
+      wavelengthData.teams[team].shown = shown;
+      console.log(`Set ${team} visibility to ${shown}`);
+      sendGameData();
+    } else {
+      console.log(`FAILED: Set ${team} visibility to ${shown}`);
+    }
   });
 
   socket.on("setPrompt", (prompt) => {
