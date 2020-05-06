@@ -5,8 +5,7 @@ import {
 import socketIOClient from "socket.io-client";
 import { addSocket, IActions, updateGameData } from "./actions";
 import { getType } from "typesafe-actions";
-
-const server_url = "http://localhost:5000";
+import { server_url } from "../consts";
 
 export interface IWavelengthData {
   dialAngle: number;
