@@ -29,6 +29,7 @@ const HomeUnconnected = ({ socket, wavelengthData }: IAdminProps) => {
   const { team } = useParams();
   const [covered, setCovered] = React.useState(true);
   const [targetRange, setTargetRange] = React.useState(0);
+  const [adminTranslucency, setAdminTranslucency] = React.useState(false);
 
   React.useEffect(() => {
     setTargetRange(wavelengthData.targetRange);
@@ -46,7 +47,7 @@ const HomeUnconnected = ({ socket, wavelengthData }: IAdminProps) => {
 
             <ImageCover
               covered={covered}
-              opacity={team === "admin" ? 0.95 : 1}
+              opacity={team === "admin" && adminTranslucency ? 0.3 : 1}
             />
             <ImageDial
               unlocked={unlocked}
@@ -71,6 +72,18 @@ const HomeUnconnected = ({ socket, wavelengthData }: IAdminProps) => {
           </Layer>
         </Stage>
       </div>
+      {team === "admin" && (
+        <div className="d-flex justify-content-center">
+          <input
+            type="checkbox"
+            checked={adminTranslucency}
+            onClick={() => {
+              setAdminTranslucency(!adminTranslucency);
+            }}
+          />
+          Translucent Cover
+        </div>
+      )}
       {team === "admin" && <AdminPanel teams={teams} />}
       {!team && <JoinTeam teams={teams} wavelengthData={wavelengthData} />}
       <GameUpdater />

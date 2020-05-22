@@ -62,10 +62,14 @@ let wavelengthData = {
 
 let players = {};
 
-const sendGameData = async () => {
-  console.log("Sending GameData");
-  console.log(wavelengthData);
-  io.emit("wavelengthData", wavelengthData);
+const sendGameData = async (socket = null) => {
+  if (socket) {
+    console.log("Sending GameData to most");
+    socket.broadcast.emit("wavelengthData", wavelengthData);
+  } else {
+    console.log("Sending Game Data to all");
+    io.emit("wavelengthData", wavelengthData);
+  }
 };
 
 io.on("connection", (socket) => {
@@ -79,8 +83,8 @@ io.on("connection", (socket) => {
 
   socket.on("updateAngle", (angle) => {
     wavelengthData.dialAngle = angle;
-    console.log("Dial Angle set to ", angle);
-    sendGameData();
+    console.log(`Dial Angle set to ${angle} (from socket ${socket.id})`);
+    sendGameData(socket);
   });
 
   socket.on("setTargetRange", (angle) => {

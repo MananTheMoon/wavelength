@@ -40,7 +40,9 @@ export const ImageDial = ({ socket, unlocked, angle }: IImageDialProps) => {
 
   React.useEffect(() => {
     rotateAroundCenter(imageRef.current, newAngle);
-    delayedUpdateAngle(newAngle);
+    if (isMouseDown) {
+      delayedUpdateAngle(newAngle);
+    }
   }, [newAngle]);
 
   return (
